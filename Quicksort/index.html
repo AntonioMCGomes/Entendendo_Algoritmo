@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quicksort</title>
+</head>
+<body>
+    
+
+
+    <script>
+        //Algoritmo de Ordenação
+
+        //Esse algoritmo está reduzido em JS a função sort
+
+        function quickSort(arr) {
+            if (arr.length <= 1) {
+                return arr;
+            }
+
+            let pivot = arr[Math.floor(arr.length / 2)];
+            let left = arr.filter(x => x < pivot);
+            let middle = arr.filter(x => x === pivot);
+            let right = arr.filter(x => x > pivot);
+
+            return [...quickSort(left), ...middle, ...quickSort(right)];
+        }
+
+        // Exemplo de uso:
+        let numeros = [64, 34, 25, 12, 22, 11, 90];
+        console.log(quickSort(numeros)); // Saída: [11, 12, 22, 25, 34, 64, 90]
+    </script>
+</body>
+</html>

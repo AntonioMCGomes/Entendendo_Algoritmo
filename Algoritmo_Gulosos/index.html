@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo guloso</title>
+</head>
+<body>
+    
+
+    <script>
+
+        function trocoGuloso(valor, moedas) {
+            let resultado = [];
+            moedas.sort((a, b) => b - a); // Ordena as moedas em ordem decrescente
+
+            for (let moeda of moedas) {
+                while (valor >= moeda) {
+                    valor -= moeda;
+                    resultado.push(moeda);
+                }
+            }
+
+            return resultado;
+        }
+
+        // Exemplo de uso:
+        let moedasDisponiveis = [25, 10, 5, 1];
+        let valor = 63;
+        console.log(trocoGuloso(valor, moedasDisponiveis)); // Saída: [25, 25, 10, 1, 1, 1]
+    </script>
+</body>
+</html>

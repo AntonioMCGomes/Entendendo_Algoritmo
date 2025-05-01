@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela Hash</title>
+</head>
+<body>
+    
+
+
+    <script>
+
+        //Usar objetos
+
+        class TabelaHash {
+            constructor(tamanho = 20) {
+                this.tabela = new Array(tamanho);
+            }
+
+            // Função de hash simples
+            _hash(chave) {
+                let hash = 0;
+                for (let i = 0; i < chave.length; i++) {
+                    hash += chave.charCodeAt(i);
+                }
+                return hash % this.tabela.length;
+            }
+
+            // Inserir um valor na tabela
+            set(chave, valor) {
+                let indice = this._hash(chave);
+                if (!this.tabela[indice]) {
+                    this.tabela[indice] = [];
+                }
+                this.tabela[indice].push([chave, valor]);
+            }
+
+            // Buscar um valor na tabela
+            get(chave) {
+                let indice = this._hash(chave);
+                if (!this.tabela[indice]) return null;
+                
+                for (let [k, v] of this.tabela[indice]) {
+                    if (k === chave) return v;
+                }
+                return null;
+            }
+        }
+
+        // Exemplo de uso:
+        let hashTable = new TabelaHash();
+        hashTable.set("nome", "Alice");
+        hashTable.set("idade", 25);
+
+        console.log(hashTable.get("nome"));  // Saída: Alice
+        console.log(hashTable.get("idade")); // Saída: 25
+        console.log(hashTable.get("cidade")); // Saída: null
+    </script>
+</body>
+</html>

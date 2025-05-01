@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa em Largura</title>
+</head>
+<body>
+    
+    <script>
+        
+
+        function bfs(grafo, inicio) {
+            let visitados = new Set();
+            let fila = [inicio];
+
+            while (fila.length > 0) {
+                let no = fila.shift(); // Remove o primeiro elemento da fila
+
+                if (!visitados.has(no)) {
+                    console.log(no); // Processa o nó (aqui apenas imprimimos)
+                    visitados.add(no);
+                    
+                    // Adiciona os vizinhos não visitados à fila
+                    for (let vizinho of grafo[no]) {
+                        if (!visitados.has(vizinho)) {
+                            fila.push(vizinho);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Exemplo de uso:
+        let grafo = {
+            'A': ['B', 'C'],
+            'B': ['D', 'E'],
+            'C': ['F'],
+            'D': [],
+            'E': ['F'],
+            'F': []
+        };
+
+        console.log("Ordem de visitação:");
+        bfs(grafo, 'A');
+    </script>
+</body>
+</html>

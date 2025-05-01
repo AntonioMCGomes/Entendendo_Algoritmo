@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa Binária</title>
+</head>
+<body>
+
+
+    <script>
+
+        //Esse algoritmo só funciona se os dados analisados estiverem ordenados 
+
+        function buscaBinaria(arr, alvo) {
+            let esquerda = 0;
+            let direita = arr.length - 1;
+
+            while (esquerda <= direita) {
+                let meio = Math.floor((esquerda + direita) / 2);
+
+                if (arr[meio] === alvo) {
+                    return meio; // Retorna o índice do elemento encontrado
+                } else if (arr[meio] < alvo) {
+                    esquerda = meio + 1;
+                } else {
+                    direita = meio - 1;
+                }
+            }
+
+            return -1; // Retorna -1 caso o elemento não esteja no array
+        }
+
+        // Exemplo de uso:
+        let numeros = [11, 12, 22, 25, 34, 64, 90];
+        console.log(buscaBinaria(numeros, 25)); // Saída: 3 (índice do número 25)
+        console.log(buscaBinaria(numeros, 100)); // Saída: -1 (não encontrado)
+    </script>
+</body>
+</html>

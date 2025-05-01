@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo de Dijkistra</title>
+</head>
+<body>
+    
+    <script>
+
+
+        function dijkstra(grafo, inicio) {
+            let distancias = {};
+            let visitados = new Set();
+            let anteriores = {};
+            let nos = Object.keys(grafo);
+
+            // Inicializa todas as distâncias como infinito, exceto o nó inicial
+            for (let no of nos) {
+                distancias[no] = Infinity;
+                anteriores[no] = null;
+            }
+            distancias[inicio] = 0;
+
+            while (nos.length > 0) {
+                // Escolhe o nó com a menor distância que ainda não foi visitado
+                let menorNo = null;
+                for (let no of nos) {
+                    if (!visitados.has(no) && (menorNo === null || distancias[no] < distancias[menorNo])) {
+                        menorNo = no;
+                    }
+                }
+
+                if (menorNo === null) break; // Todos os nós foram visitados
+
+                visitados.add(menorNo);
+                nos = nos.filter(n => n !== menorNo);
+
+                // Atualiza as distâncias para os vizinhos do menor nó
+                for (let [vizinho, peso] of Object.entries(grafo[menorNo])) {
+                    let novaDistancia = distancias[menorNo] + peso;
+                    if (novaDistancia < distancias[vizinho]) {
+                        distancias[vizinho] = novaDistancia;
+                        anteriores[vizinho] = menorNo;
+                    }
+                }
+            }
+
+            return { distancias, anteriores };
+        }
+
+        // Exemplo de uso:
+        let grafo = {
+            'A': { 'B': 4, 'C': 2 },
+            'B': { 'A': 4, 'C': 5, 'D': 10 },
+            'C': { 'A': 2, 'B': 5, 'D': 3 },
+            'D': { 'B': 10, 'C': 3 }
+        };
+
+        console.log(dijkstra(grafo, 'A'));
+    </script>
+</body>
+</html>

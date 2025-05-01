@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-vizinhos</title>
+</head>
+<body>
+    
+
+    <script>
+
+
+        function calcularDistancia(ponto1, ponto2) {
+            return Math.sqrt(ponto1.reduce((soma, valor, i) => soma + (valor - ponto2[i]) ** 2, 0));
+        }
+
+        function kNN(dados, novoPonto, k) {
+            let distancias = dados.map(({ ponto, classe }) => ({
+                distancia: calcularDistancia(ponto, novoPonto),
+                classe: classe
+            }));
+
+            // Ordena pelo menor distância
+            distancias.sort((a, b) => a.distancia - b.distancia);
+
+            // Pega os k vizinhos mais próximos
+            let kVizinhos = distancias.slice(0, k);
+
+            // Classifica o novo ponto com base na maioria dos vizinhos
+            let frequencia = {};
+            kVizinhos.forEach(({ classe }) => {
+                frequencia[classe] = (frequencia[classe] || 0) + 1;
+            });
+
+            return Object.keys(frequencia).reduce((a, b) => (frequencia[a] > frequencia[b] ? a : b));
+        }
+
+        // Exemplo de uso:
+        let dados = [
+            { ponto: [2, 3], classe: "A" },
+            { ponto: [1, 1], classe: "B" },
+            { ponto: [5, 4], classe: "A" },
+            { ponto: [6, 7], classe: "B" }
+        ];
+
+        let novoPonto = [3, 4];
+        let k = 3;
+
+        console.log("Classe prevista:", kNN(dados, novoPonto, k)); // Saída: Classe prevista: A
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenação por Seleção</title>
+</head>
+<body>
+    
+
+    <script>
+        function selectionSort(arr) {
+            let n = arr.length;
+        
+            for (let i = 0; i < n - 1; i++) {
+                let minIndex = i;
+
+                for (let j = i + 1; j < n; j++) {
+                    if (arr[j] < arr[minIndex]) {
+                    minIndex = j;
+                    }
+                }
+
+                // Troca os elementos
+                [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+            }
+
+            return arr;
+        }
+
+        // Exemplo de uso:
+        let numeros = [64, 34, 25, 12, 22, 11, 90];
+        console.log(selectionSort(numeros)); // Saída: [11, 12, 22, 25, 34, 64, 90]
+
+        /*
+            Claro! A ordenação por seleção funciona assim:
+            - Localiza o menor elemento na lista e o coloca na primeira posição.
+            - Repete o processo para a segunda posição, encontrando o segundo menor elemento e movendo-o para o lugar certo.
+            - Continua assim até que todos os elementos estejam ordenados.
+
+            💡 Para visualizar, imagine um grupo de números bagunçados. O algoritmo olha para todos, escolhe o menor e coloca ele no início. Depois, pega o menor dos restantes e coloca na segunda posição. Esse processo se repete até a lista estar totalmente ordenada.
+            Esse método tem complexidade (O(n^2)), tornando-o menos eficiente para listas grandes, mas simples de entender!
+            Quer ver um exemplo mais detalhado? 😃
+        
+        */
+    </script>
+</body>
+</html>
